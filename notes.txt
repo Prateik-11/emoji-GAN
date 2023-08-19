@@ -1,0 +1,6 @@
+First Emoji Run:
+Model Collapse begins after 54+78 epochs
+Best model = 132_epochs
+
+First Sketch Run:
+Mode Collapse after 131 Epochs
