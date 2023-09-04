@@ -2,22 +2,16 @@ import os
 from PIL import Image
 import PIL
 
-PATH = r"D:\Python\gan\emoji_clean\image\\"
-NEW_PATH = r"D:\Python\gan\emoji_clean_4\image"
+# get absolute path of the file and pull images from there
+PATH = os.path.join(os.path.join(os.path.dirname(os.path.realpath(__file__)), "image"), "Apple")
+NEW_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "clean_emojis")
 
-for image in os.listdir(PATH):
-  # im = Image.open(PATH + image)
-  # # If is png image
-  # if im.format == 'PNG':
-  #   # and is not RGBA
-  #   if im.mode != 'RGB':
-  #     im.convert("RGB").save(NEW_PATH + image)
-  
-  
-  im = Image.open(PATH + image)
-  if list(im.getbands()) != ['R','G','B']:
-      temp_background = PIL.Image.new('RGB', im.size, (255, 255, 255))
-      temp_background.paste(im)
-      im = temp_background
-  im.save(os.path.join(NEW_PATH, image))
-    
+for i, img_path in enumerate(os.listdir(PATH)):
+  if img_path[-4:] == ".png":
+    temp_image = Image.open(os.path.join(PATH, img_path))
+    background = PIL.Image.new('RGBA', temp_image.size, (255, 255, 255))
+    temp_image = temp_image.convert('RGBA')
+    temp_image = PIL.Image.alpha_composite(background, temp_image).convert('RGB')
+    temp_image.save(os.path.join(NEW_PATH, img_path))
+    print(f"saved image: {img_path}", end='\r')
+      

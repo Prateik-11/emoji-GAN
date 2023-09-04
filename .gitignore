@@ -1,3 +1,6 @@
 /emoji*
 /sketches
 /models/*/*
+*.csv
+archive/**
+image/**
